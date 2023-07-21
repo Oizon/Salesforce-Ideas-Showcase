@@ -31,6 +31,7 @@ public with sharing class CaseIntakeValidation {
             SELECT Id
             FROM Profile
             WHERE Name IN :allowedProfileNames
+            WITH SECURITY_ENFORCED
         ]){
             allowedProfileIds.add(profile.Id);
         }
@@ -54,7 +55,8 @@ public with sharing class CaseIntakeValidation {
                             FROM Contact
                             WHERE Id IN :contactIds
                         ) 
-                        AND Subject IN :validSubjectOptions]){
+                        AND Subject IN :validSubjectOptions
+                        WITH SECURITY_ENFORCED]){
             validContactIds.add(task.WhoId);
         }
     
