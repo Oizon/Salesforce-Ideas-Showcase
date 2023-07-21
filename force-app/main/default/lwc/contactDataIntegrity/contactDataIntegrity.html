@@ -1,0 +1,25 @@
+<template>
+    <lightning-card>
+        <div class="slds-text-heading_medium">
+            <template if:true={contactRecord}>
+                <div class="progressBar">
+                    <lightning-progress-bar 
+                        value={score} size="large" variant="circular" 
+                        aria-label="Progress Bar showing data integrity score as a bar.">
+                    </lightning-progress-bar>
+                </div>
+                <p class="slds-text-align_center">
+                    <template if:true={isContactDetailsComplete}>
+                        <span class="bolded">Data Integrity: {score}% </span><span class="slds-text-color_success">All Basic Contact Details Captured</span>
+                    </template>
+                    <template if:false={isContactDetailsComplete}>
+                        <span class="bolded">Data Integrity: {score}% </span><span class="slds-text-color_error">Missing: {missingDetails}</span>
+                    </template>
+                </p>
+            </template>
+            <template if:false={contactRecord}>
+                <p class="slds-text-align_center">No contact record found.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
