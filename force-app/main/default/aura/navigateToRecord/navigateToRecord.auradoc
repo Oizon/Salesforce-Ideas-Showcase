@@ -1,0 +1,5 @@
+<aura:documentation>
+	<aura:description>
+		<p>This component is to be invoked by a screen flow and redirect the user to the passed in recordId.</p>
+	</aura:description>
+</aura:documentation>

@@ -1,0 +1,3 @@
+<design:component >
+    <design:attribute name="recordId" label="Record ID" description="The ID of the record we are navigating to."/>
+</design:component>
