@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Contact Timeline">
+        <lightning-button-icon
+            icon-name={icon}
+            slot="actions"
+            onclick={handleClick}>
+            <label>refresh</label>
+        </lightning-button-icon>
+        <template if:true={records.data}>
+            <div class="slds-var-m-around_medium">
+                <lightning-datatable
+                    key-field="Id"
+                    data={records.data}
+                    columns={columns}
+                    hide-checkbox-column>
+                </lightning-datatable>
+            </div>
+        </template>
+    </lightning-card>
+</template>
