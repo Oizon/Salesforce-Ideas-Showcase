@@ -1,0 +1,182 @@
+<apex:page standardController="Assessment_Form__c" renderAs="pdf">
+    <body>
+        <apex:pageBlock>
+            <apex:pageBlockSection columns="1">
+                <!--future idea if needed pass the ID from a flow using a custom controller (no knowledge yet) to override the chartId to send to other systems if using same form.-->
+                <apex:outputField label="Chart Id:" value="{!Assessment_Form__c.Participant__r.DualSympathicResetChartId__c}"/>
+                <apex:outputField label="Assessment Type:" value="{!Assessment_Form__c.RecordType.Name}"/>
+                <apex:outputField label="Score:" value="{!Assessment_Form__c.Score__c}"/>
+                <apex:outputField label="Individual Classification:" value="{!Assessment_Form__c.Individual_Classification__c}"/>
+                <apex:outputField value="{!Assessment_Form__c.CreatedDate}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <!--CSSR-S - Columbia Form-->
+            <apex:pageBlock rendered="{!(Assessment_Form__c.RecordType.DeveloperName == 'Columbia')}">
+                <hr/>
+                <apex:pageBlockSection columns="1">
+                    <apex:outputField label="1. Have you wished you were dead or wished you could go to sleep and not wake up within the past month?" value="{!Assessment_Form__c.Wished_for_Death__c}"/>
+                    <apex:outputField label="2. Have you actually had any thoughts of killing yourself within the past month?" value="{!Assessment_Form__c.Thoughts_of_Killing_Yourself__c}"/>
+                    <apex:outputField label="3. Have you been thinking about how you might do this within the past month?" value="{!Assessment_Form__c.Thinking_About_How__c}"/>
+                    <apex:outputField label="4. Have you had these thoughts and had some intention of acting on them within the past month?" value="{!Assessment_Form__c.Intentions_Of_Acting__c}"/>
+                    <apex:outputField label="5. Have you started to work out or worked out the details of how to kill yourself within the past month? Do you intend to carry out this plan?" value="{!Assessment_Form__c.Started_to_work_out_the_details__c}"/>
+                    <apex:outputField label="6. Have you ever done anything, started to do anything, or prepared to do anything to end your life?" value="{!Assessment_Form__c.Suicidal_Acts__c}"/>
+                    <apex:outputField label="7. If 'Yes', was this within the past three months?" value="{!Assessment_Form__c.Within_Last_3_Months__c}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        <!--PHQ-9 - Depressive Sympotoms-->
+        <apex:outputPanel rendered="{!(Assessment_Form__c.RecordType.DeveloperName == 'Depressive_Symptoms')}">
+            <hr/>
+            <apex:pageBlock>
+                <apex:pageBlockSection columns="1">
+                    <h4><u>Over the last 2 weeks, how often have you been bothered by:</u></h4>
+                    <apex:outputField label="1. Little interest or pleasure in doing things:" value="{!Assessment_Form__c.Little_interest_or_pleasure_in_doing_thi__c}"/>
+                    <apex:outputField label="2. Feeling down, depressed, or hopeless:" value="{!Assessment_Form__c.Feeling_down_depressed_or_hopeless__c}"/>
+                    <apex:outputField label="3. Trouble falling or staying asleep, or sleeping too much:" value="{!Assessment_Form__c.Sleep_Troubles__c}"/>
+                    <apex:outputField label="4. Feeling tired or having little energy:" value="{!Assessment_Form__c.Feeling_tired_or_having_little_energy__c}"/>
+                    <apex:outputField label="5. Poor appetite or overeating:" value="{!Assessment_Form__c.Poor_appetite_or_overeating__c}"/>
+                    <apex:outputField label="6. Feeling bad about yourself -- or that you are a failure or have let yourself or your family down:" value="{!Assessment_Form__c.Feeling_bad_about_yourself__c}"/>
+                    <apex:outputField label="7. Trouble concentrating on things, such as reading the newspaper or watching television:" value="{!Assessment_Form__c.Trouble_concentrating_on_things__c}"/>
+                    <apex:outputField label="8. Moving or speaking so slowly that other could have noticed? Or the opposite -- being so fidgety or restless that you have been moving around a lot more than usual:" value="{!Assessment_Form__c.Moving_or_speaking_slowly__c}"/>
+                    <apex:outputField label="9. Thoughts that you would be better off dead or of hurting yourself in some way:" value="{!Assessment_Form__c.Better_off_dead_or_of_hurting__c}"/>
+                    <apex:outputField label="10. Considering the last nine questions, how difficult have these problems made it for you to do your work, take care of things at home, or get along with other people?:" value="{!Assessment_Form__c.How_difficult_are_these_problems__c}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:outputPanel>
+        <!--GAD-7-->
+        <apex:outputPanel rendered="{!(Assessment_Form__c.RecordType.DeveloperName == 'GAD_7')}">
+            <hr/>
+            <apex:pageBlock>
+                <apex:pageBlockSection columns="1">
+                    <h4><u>Over the last 2 weeks, how often have you been bothered by the following problems?</u></h4>
+                    <apex:outputField label="1. Feeling nervous, anxious, or on edge:" value="{!Assessment_Form__c.Feeling_nervous_anxious_or_on_edge__c}"/>
+                    <apex:outputField label="2. Not being able to stop or control worrying:" value="{!Assessment_Form__c.Inability_to_cease_or_control_worrying__c}"/>
+                    <apex:outputField label="3. Worrying too much about different things:" value="{!Assessment_Form__c.Worrying_too_much_about_different_things__c}"/>
+                    <apex:outputField label="4. Trouble relaxing:" value="{!Assessment_Form__c.Trouble_relaxing__c}"/>
+                    <apex:outputField label="5. Being so restless that it is hard to sit still:" value="{!Assessment_Form__c.Restless_hard_to_sit_still__c}"/>
+                    <apex:outputField label="6. Becoming easily annoyed or irratable:" value="{!Assessment_Form__c.Becoming_easily_annoyed_or_irritable__c}"/>
+                    <apex:outputField label="7. Feeling afraid, as if something awful might happen:" value="{!Assessment_Form__c.Fearful_anticipating_awful_events__c}"/>
+                    <apex:outputField label="8. If you checked any problems, how difficult have they made it for you to do your work, take care of things at home, or get along with other people?" value="{!Assessment_Form__c.Are_work_home_or_relationship_affected__c}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:outputPanel>
+        <!--GSE-->
+        <apex:outputPanel rendered="{!(Assessment_Form__c.RecordType.DeveloperName == 'GSE')}">
+            <hr/>
+            <apex:pageBlock>
+                <apex:pageBlockSection columns="1">
+                    <apex:outputField label="1. I can always manage to solve difficult problems if I try hard enough." value="{!Assessment_Form__c.Solve_difficult_problems__c}"/>
+                    <apex:outputField label="2. If someone opposes me, I can find the means and ways to get what I want." value="{!Assessment_Form__c.Someone_opposes_me__c}"/>
+                    <apex:outputField label="3. It is easy for me to stick to my aims and accomplish my goals." value="{!Assessment_Form__c.Aim_and_accomplish__c}"/>
+                    <apex:outputField label="4. I am confident that I could deal efficiently with unexpected events." value="{!Assessment_Form__c.Efficient_with_unexpected_events__c}"/>
+                    <apex:outputField label="5. Thanks to my resourcefulness, I know how to handle unforeseen situations." value="{!Assessment_Form__c.Handle_unforeseen_situations__c}"/>
+                    <apex:outputField label="6. I can solve most problems if I invest the necessary effort." value="{!Assessment_Form__c.Invest_the_effort__c}"/>
+                    <apex:outputField label="7. I can remain clam when facing difficulties because I can rely on my own coping abilities." value="{!Assessment_Form__c.Calm_facing_difficulties__c}"/>
+                    <apex:outputField label="8. When I am confronted with a problem, I can usually find several solutions." value="{!Assessment_Form__c.Confronted_with_a_problem__c}"/>
+                    <apex:outputField label="9. If I am in trouble, I can usually think of a solution." value="{!Assessment_Form__c.Think_of_a_solution__c}"/>
+                    <apex:outputField label="10. I can usually handle whatever comes my way." value="{!Assessment_Form__c.Comes_my_way__c}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:outputPanel>
+        <!--ISEL-12-->
+        <apex:outputPanel rendered="{!(Assessment_Form__c.RecordType.DeveloperName == 'ISEL_12')}">
+            <hr/>
+            <apex:pageBlock>
+                <apex:pageBlockSection columns="1">
+                    <apex:outputField label="Appraisal Score:" value="{!Assessment_Form__c.Appraisal_Score__c}"/>
+                    <apex:outputField label="Belonging Score:" value="{!Assessment_Form__c.Belonging_Score__c}"/>
+                    <apex:outputField label="Tangible Score:" value="{!Assessment_Form__c.Tangible_Score__c}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            <hr/>
+            <apex:pageBlock>
+                <apex:pageBlockSection columns="1">
+                    <apex:outputField label="1. If I wanted to go on a trip for a day (for example, to the country or mountains), I would have a hard time finding someone to go with me." value="{!Assessment_Form__c.Trip_for_a_day__c}"/>
+                    <apex:outputField label="2. I feel that there is no one I can share my most private worries and fears with." value="{!Assessment_Form__c.Private_Worries_and_Fears__c}"/>
+                    <apex:outputField label="3. If I were sick, I could easily find someone to help me with my daily chores." value="{!Assessment_Form__c.Help_with_daily_chores__c}"/>
+                    <apex:outputField label="4. There is someone I can turn to for advice about handling problems with my family." value="{!Assessment_Form__c.Advice_about_family_problems__c}"/>
+                    <apex:outputField label="5. If I decide one afternoon that I would like to go to a movie that evening, I could easily find someone to go with me." value="{!Assessment_Form__c.Movie_that_evening__c}"/>
+                    <apex:outputField label="6. When I need suggestions on how to deal with a personal problem, I know someone I can turn to." value="{!Assessment_Form__c.Personal_problem_suggestions__c}"/>
+                    <apex:outputField label="7. I don't often get invited to do things with others." value="{!Assessment_Form__c.Invited_to_things__c}"/>
+                    <apex:outputField label="8. If I had to go out of town for a few weeks, it would be difficult to find someone who would look after my house or apartment (the plants, pets, garden, etc.)." value="{!Assessment_Form__c.Find_a_housesitter__c}"/>
+                    <apex:outputField label="9. If I wanted to have lunch with someone, I could easily find someone to join me." value="{!Assessment_Form__c.Lunch_with_someone__c}"/>
+                    <apex:outputField label="10. If I was stranded 10 miles from home, there is someone I could call who could come and get me." value="{!Assessment_Form__c.Ten_miles_from_home__c}"/>
+                    <apex:outputField label="11. If a family crisis arose, it would be difficult to find someone who could give me good advice about how to handle it." value="{!Assessment_Form__c.Advice_for_family_crisis__c}"/>
+                    <apex:outputField label="12. If I needed some help in moving to a new house or apartment, I would have a hard time finding someone to help me." value="{!Assessment_Form__c.Help_moving__c}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:outputPanel>
+        <!--PCL-5-->
+        <apex:pageBlock rendered="{!(Assessment_Form__c.RecordType.DeveloperName == 'PCL_5')}">
+            <apex:pageBlockSection columns="1">
+                <h4><u>In the past month, how much were you bothered by:</u></h4>
+                <apex:outputField label="1. Repeated, disturbing, and unwanted memories of the stressful experience?" value="{!Assessment_Form__c.Memories_of_the_stress_experience__c}"/>
+                <apex:outputField label="2. Repeated, disturbing dreams of the stressful experience?" value="{!Assessment_Form__c.Dreams_of_the_stressful_experience__c}"/>
+                <apex:outputField label="3. Suddenly feeling or acting as if the stressful experience were actually happening again (as if you were actually back there reliving it)?" value="{!Assessment_Form__c.Feel_act_experience_is_happening_again__c}"/>
+                <apex:outputField label="4. Feeling very upset when something reminded you of the stressful experience?" value="{!Assessment_Form__c.Upset_of_stress_experience__c}"/>
+                <apex:outputField label="5. Having strong physical reactions when something reminded you of the stressful experience (for example, heart pounding, trouble breathing, sweating)?" value="{!Assessment_Form__c.Physical_reactions_of_stress_experience__c}"/>
+                <apex:outputField label="6. Avoiding memories, thoughts, or feelings related to the stressful experience?" value="{!Assessment_Form__c.Avoid_thought_feeling_stress_experience__c}"/>
+                <apex:outputField label="7. Avoiding external reminders of the stressful experience (for example, people, places, conversations, activities, objects, or situations)?" value="{!Assessment_Form__c.Avoid_reminders_of_the_stress_experience__c}"/>
+                <apex:outputField label="8. Trouble remembering important parts of the stressful experience?" value="{!Assessment_Form__c.Memory_issues_of_stressful_experience__c}"/>
+                <apex:outputField label="9. Having strong negative beliefs about yourself, other people, or the world (for example, having thoughts such as: I am bad, there is something seriously wrong with me, no one can be trusted, the world is completely dangerous)?" value="{!Assessment_Form__c.Negative_beliefs_about_you_others_world__c}"/>
+                <apex:outputField label="10. Blaming yourself or someone else for the stressful experience or what happened after it?" value="{!Assessment_Form__c.Blame_you_someone_stress_exper_aftermath__c}"/>
+                <apex:outputField label="11. Having strong negative feelings such as fear, horror, anger, guilt, or shame?" value="{!Assessment_Form__c.Negative_feel_of_fear_anger_guilt_shame__c}"/>
+                <apex:outputField label="12. Loss of interest in activities that you used to enjoy?" value="{!Assessment_Form__c.Lost_interest_in_activities_use_to_enjoy__c}"/>
+                <apex:outputField label="13. Feeling distant or cut off from other people?" value="{!Assessment_Form__c.Feel_distant_cut_off_from_other_people__c}"/>
+                <apex:outputField label="14. Trouble experiencing positive feelings (for example, being unable to feel happiness or have loving feelings for people close to you)?" value="{!Assessment_Form__c.Trouble_experiencing_positive_feelings__c}"/>
+                <apex:outputField label="15. Irritable behavior, angry outbursts, or acting aggressively?" value="{!Assessment_Form__c.Behavior_outbursts_acting_aggressively__c}"/>
+                <apex:outputField label="16. Taking too many risks or doing things that could cause you harm?" value="{!Assessment_Form__c.Taking_risk_doing_thing_could_cause_harm__c}"/>
+                <apex:outputField label="17. Being 'superalert' or watchful or on guard?" value="{!Assessment_Form__c.Being_superalert_or_watchful_or_on_guard__c}"/>
+                <apex:outputField label="18. Feeling jumpy or easily startled?" value="{!Assessment_Form__c.Feeling_jumpy_or_easily_startled__c}"/>
+                <apex:outputField label="19. Having difficulty concentrating?" value="{!Assessment_Form__c.Having_difficulty_concentrating__c}"/>
+                <apex:outputField label="20. Trouble falling or staying asleep?" value="{!Assessment_Form__c.Trouble_falling_or_staying_asleep__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock> 
+        <!--PsychoSocial-->
+        <apex:pageBlock rendered="{!(Assessment_Form__c.RecordType.DeveloperName == 'PsychoSocial')}">
+            <apex:pageBlockSection columns="1">                    
+                <hr/>
+                <apex:outputField label="If Family Member select relationship to individual" value="{!Assessment_Form__c.Family_Member_Relationship__c}"/>
+                <apex:outputField label="Has eligibility status been confirmed (e.g., if a Veteran through SQUARES 2.0 or if Armed Forces Member or Family Member by other means)?" value="{!Assessment_Form__c.Eligibility_Status__c}"/>
+                <apex:outputField label="Select the risk factors if has impacted individual's mental health and wellbeing within the last 30 days or otherwise do not select that risk factor." value="{!Assessment_Form__c.Suicide_Risk_Factors__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <!--Trait Hope Scale-->
+        <apex:pageBlock rendered="{!(Assessment_Form__c.RecordType.DeveloperName == 'Trait_Hope_Scale')}">
+            <apex:pageBlockSection columns="1">
+                <hr/>
+                <apex:outputField label="1. I can think of many ways to get out of a jam." value="{!Assessment_Form__c.Escape_jams_creatively__c}"/>
+                <apex:outputField label="2. I energetically pursue my goals." value="{!Assessment_Form__c.I_energetically_pursue_my_goals__c}"/>
+                <apex:outputField label="3. I feel tired most of the time." value="{!Assessment_Form__c.I_feel_tired_most_of_the_time__c}"/>
+                <apex:outputField label="4. There are lots of ways around any problem." value="{!Assessment_Form__c.Many_solutions_to_any_problem__c}"/>
+                <apex:outputField label="5. I am easily downed in an argument." value="{!Assessment_Form__c.I_am_easily_downed_in_an_argument__c}"/>
+                <apex:outputField label="6. I can think of many ways to get the things in life that are important to me." value="{!Assessment_Form__c.Many_paths_to_important_things__c}"/>
+                <apex:outputField label="7. I worry about my health." value="{!Assessment_Form__c.I_worry_about_my_health__c}"/>
+                <apex:outputField label="8. Even when others get discouraged, I know I can find a way to solve the problem." value="{!Assessment_Form__c.I_persist_find_solutions__c}"/>
+                <apex:outputField label="9. My past experiences have prepared me well for my future." value="{!Assessment_Form__c.Past_readies_future__c}"/>
+                <apex:outputField label="10. I've been pretty successful in life." value="{!Assessment_Form__c.I_ve_been_pretty_successful_in_life__c}"/>
+                <apex:outputField label="11. I usually find myself worrying about something." value="{!Assessment_Form__c.I_worry_often__c}"/>
+                <apex:outputField label="12. I meet the goals that I set for myself." value="{!Assessment_Form__c.I_meet_the_goals_that_I_set_for_myself__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+        <!--Warwick-->
+        <apex:pageBlock rendered="{!(Assessment_Form__c.RecordType.DeveloperName == 'Warwick')}">
+            <apex:pageBlockSection columns="1">
+                <hr/>
+                <apex:outputField label="1. I've been feeling optimistic about the future." value="{!Assessment_Form__c.Optimistic_about_the_future__c}"/>
+                <apex:outputField label="2. I've been feeling useful." value="{!Assessment_Form__c.Feeling_Useful__c}"/>
+                <apex:outputField label="3. I've been feeling relaxed." value="{!Assessment_Form__c.Feeling_Relaxed__c}"/>
+                <apex:outputField label="4. I've been feeling interested in other people." value="{!Assessment_Form__c.Feeling_Interested_In_Other_People__c}"/>
+                <apex:outputField label="5. I've had energy to spare." value="{!Assessment_Form__c.Energy_to_Spare__c}"/>
+                <apex:outputField label="6. I've been dealing with problems well." value="{!Assessment_Form__c.Dealing_with_Problems_well__c}"/>
+                <apex:outputField label="7. I've been thinking clearly." value="{!Assessment_Form__c.Thinking_Clearly__c}"/>
+                <apex:outputField label="8. I've been feeling good about myself." value="{!Assessment_Form__c.Feeling_good_about_myself__c}"/>
+                <apex:outputField label="9. I've been feeling close to other people." value="{!Assessment_Form__c.Feeling_close_to_other_people__c}"/>
+                <apex:outputField label="10. I've been feeling confident." value="{!Assessment_Form__c.Feeling_Confident__c}"/>
+                <apex:outputField label="11. I've been feeling loved." value="{!Assessment_Form__c.Feeling_loved__c}"/>
+                <apex:outputField label="12. I've been able to make up my own mind about things." value="{!Assessment_Form__c.Able_to_make_up_my_own_mind__c}"/>
+                <apex:outputField label="13. I've been interested in new things." value="{!Assessment_Form__c.Interested_in_new_things__c}"/>
+                <apex:outputField label="14. I've been feeling cheerful." value="{!Assessment_Form__c.Feeling_Cheerful__c}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </body>
+</apex:page>
